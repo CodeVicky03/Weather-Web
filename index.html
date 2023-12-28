@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Delius+Swash+Caps&family=Hedvig+Letters+Sans&family=Nunito&family=Nunito+Sans:opsz@6..12&family=Poppins&family=Roboto&display=swap"
+        rel="stylesheet">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="main">
+        <h1>Weather App</h1><br>
+        <input id="input" type="text" placeholder="Enter City Name">
+        <button onclick="add()">Click to Know</button>
+        <div class="ans">
+            <p id="h4"></p>
+            <p id="one"></p>
+            <p id="two"></p>
+            <p id="three"></p>
+            <p id="four"></p>
+        </div>
+    </div>
+</body>
+<script>
+    var h4 = document.getElementById("h4")
+    var input = document.getElementById("input")
+    let one = document.getElementById("one")
+    let two = document.getElementById("two")
+    let three = document.getElementById("three")
+    let four = document.getElementById("four")
+
+    function add() {
+        const a = fetch('https://api.openweathermap.org/data/2.5/weather?q=' + input.value + '&appid=bdf1a45411815e86e4fbecabcab8a31f')
+
+        a.then(
+            function (res) {
+                var b = res.json()
+
+                b.then(
+                    function (data) {
+                        h4.textContent = "Name :" + data.name
+                        one.textContent = "Main :"+ data["weather"][0].main 
+                        two.textContent = "Description :" + data["weather"][0].description
+                        three.textContent = "Temperature :" + data["main"].temp 
+                        four.textContent = 'Pressure :' + data["main"].pressure
+                    }
+                )
+            },
+            function (rej) {
+                console.log("Errer")
+            }
+        )
+    }
+</script>
+
+</html>
